@@ -1,7 +1,7 @@
 # version of node to use
 FROM node:8.5.1
 # define working directory for docker
-WORKDIR /usr/src/app
+WORKDIR /usr/app
 # copy all our source code into the working directory
 COPY package.json ./
 # install npm dependencies and pm2
