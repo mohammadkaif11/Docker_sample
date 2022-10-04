@@ -2,22 +2,40 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "nodejsapi"
+  name: "nodeapplication"
   namespace: "default"
   labels:
-    app: "nodejsapi"
+    name: "nodejsapplication"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "nodejsapi"
+      name: "nodejsapplication"
   template:
     metadata:
       labels:
-        app: "nodejsapi"
+        name: "nodejsapplication"
     spec:
       containers:
-      - name: "restapi-sha256-1"
-        image: "gcr.io/shardings-c-362513/restapi@sha256:9be36ca0a5ecf4de5904cc0a90c72ea8a9b360f7420553247f005caa72445457"
+      - name: "github-mohammadkaif11-docker-sample-1"
+        image: "gcr.io/shardings-c-362513/github_mohammadkaif11_docker_sample:$SHORT_SHA"
 ---
 apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "nodeapplication-hpa-c184"
+  namespace: "default"
+  labels:
+    name: "nodejsapplication"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "nodeapplication"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
