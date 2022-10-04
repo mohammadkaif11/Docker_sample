@@ -1,43 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  name: node-webapp
   labels:
-    app: react-webapp
-  name: react-webapp
+      app: node-webapp
 spec:
-  replicas: 5
+  replicas: 3
   selector:
     matchLabels:
-      app: react-webapp
-  strategy: {}
+      app: node-webapp
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: react-webapp
+        app: node-webapp
     spec:
       containers:
-      - image:gcr.io/shardings-c-362513/docker-sample:v1
-        name:docker-sample
-        imagePullPolicy: Always
-        resources: {}
+      - name:docker-sample
+        image:gcr.io/shardings-c-362513/restapi:v1
         ports:
           - containerPort: 3080 
-status: {}
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: react-webapp
-  labels:
-    run: react-webapp
-spec:
-  ports:
-  - port: 3080
-    protocol: TCP
-  selector:
-    app: react-webapp
-  type: LoadBalancer
