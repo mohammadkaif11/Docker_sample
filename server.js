@@ -7,7 +7,9 @@ app.get('/', function(req, res){
 app.get('/kaif', function(req, res){
     res.send("hii sharding developer");
  });
- 
+ app.get('/sohail', function(req, res){
+    res.send("hii Post");
+ });
 
 app.listen(port,()=>{
     console.log(`server is listen at ${port}`)
