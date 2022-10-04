@@ -15,7 +15,7 @@ spec:
         app: node-webapp
     spec:
       containers:
-      - name:docker-sample
+      - name:restapi
         image:gcr.io/shardings-c-362513/restapi:v1
         ports:
           - containerPort: 3080 
