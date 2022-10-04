@@ -1,21 +1,23 @@
-apiVersion: apps/v1
-kind: Deployment
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
 metadata:
-  name: node-webapp
+  name: "nodejsapi"
+  namespace: "default"
   labels:
-      app: node-webapp
+    app: "nodejsapi"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: node-webapp
+      app: "nodejsapi"
   template:
     metadata:
       labels:
-        app: node-webapp
+        app: "nodejsapi"
     spec:
       containers:
-      - name:restapi
-        image:gcr.io/shardings-c-362513/restapi:v1
-        ports:
-          - containerPort: 3080 
+      - name: "restapi-sha256-1"
+        image: "gcr.io/shardings-c-362513/restapi@sha256:9be36ca0a5ecf4de5904cc0a90c72ea8a9b360f7420553247f005caa72445457"
+---
+apiVersion: "autoscaling/v2beta1"
