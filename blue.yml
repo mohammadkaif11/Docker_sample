@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "blue"
+  namespace: "default"
+  labels:
+    app: "blue"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "blue"
+  template:
+    metadata:
+      labels:
+        app: "blue"
+    spec:
+      containers:
+      - name: "docker-sample-1"
+        image: "gcr.io/shardings-c-362513/github.com/mohammadkaif11/docker_sample:$SHORT_SHA"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "blue-hpa-qlaj"
+  namespace: "default"
+  labels:
+    app: "blue"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "blue"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
