@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "docker-sample-1"
-        image: "gcr.io/shardings-c-362513/github.com/mohammadkaif11/docker_sample:$SHORT_SHA"
+        image: gcr.io/shardings-c-362513/github.com/mohammadkaif11/docker_sample:$SHORT_SHA
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
