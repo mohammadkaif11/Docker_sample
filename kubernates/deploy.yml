@@ -2,19 +2,19 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "blue"
+  name: "sampleapplication"
   namespace: "default"
   labels:
-    app: "blue"
+    app: "sampleapplication"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "blue"
+      app: "sampleapplication"
   template:
     metadata:
       labels:
-        app: "blue"
+        app: "sampleapplication"
     spec:
       containers:
       - name: "docker-sample-1"
@@ -23,14 +23,14 @@ spec:
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "blue-hpa-qlaj"
+  name: "sampleapplication-hpa-idfm"
   namespace: "default"
   labels:
-    app: "blue"
+    app: "sampleapplication"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "blue"
+    name: "sampleapplication"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
@@ -39,3 +39,20 @@ spec:
     resource:
       name: "cpu"
       targetAverageUtilization: 80
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "sampleapplication-service"
+  namespace: "default"
+  labels:
+    app: "sampleapplication"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 8080
+  selector:
+    app: "sampleapplication"
+  type: "LoadBalancer"
+  loadBalancerIP: ""
