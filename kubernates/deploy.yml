@@ -2,19 +2,19 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "sampleapplication"
+  name: "nginx-1"
   namespace: "default"
   labels:
-    app: "sampleapplication"
+    app: "nginx-1"
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: "sampleapplication"
+      app: "nginx-1"
   template:
     metadata:
       labels:
-        app: "sampleapplication"
+        app: "nginx-1"
     spec:
       containers:
       - name: "docker-sample-1"
@@ -23,14 +23,14 @@ spec:
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "sampleapplication-hpa-idfm"
+  name: "nginx-1-hpa-3xjj"
   namespace: "default"
   labels:
-    app: "sampleapplication"
+    app: "nginx-1"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "sampleapplication"
+    name: "nginx-1"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
@@ -43,16 +43,16 @@ spec:
 apiVersion: "v1"
 kind: "Service"
 metadata:
-  name: "sampleapplication-service"
+  name: "nginx-1-service"
   namespace: "default"
   labels:
-    app: "sampleapplication"
+    app: "nginx-1"
 spec:
   ports:
   - protocol: "TCP"
     port: 80
     targetPort: 8080
   selector:
-    app: "sampleapplication"
+    app: "nginx-1"
   type: "LoadBalancer"
   loadBalancerIP: ""
